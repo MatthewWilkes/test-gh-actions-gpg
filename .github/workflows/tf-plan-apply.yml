@@ -65,7 +65,7 @@ jobs:
     - name: Encrypt Terraform Plan
       id: tf-plan-encrypt
       run: |
-        gpg --batch --passphrase=EXAMPLE --symmetric tfplan
+        gpg --batch --passphrase=EXAMPLE --symmetric --cipher-algo AES256 --digest-algo sha256 --s2k-mode 3 --s2k-digest-algo sha256 --s2k-count 65011712 tfplan
 
     # Save plan to artifacts  
     - name: Publish Terraform Plan
