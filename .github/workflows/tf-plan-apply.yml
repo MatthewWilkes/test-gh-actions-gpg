@@ -60,13 +60,19 @@ jobs:
         else 
           exit 0
         fi
-        
+
+    # Encrypt plan
+    - name: Terraform Plan
+      id: tf-plan-encrypt
+      run: |
+        gpg --batch --passphrase=EXAMPLE --symmetric tfplan
+
     # Save plan to artifacts  
     - name: Publish Terraform Plan
       uses: actions/upload-artifact@v4
       with:
         name: tfplan
-        path: tfplan
+        path: tfplan.gpg
         
     # Create string output of Terraform Plan
     - name: Create String Output
@@ -135,6 +141,13 @@ jobs:
       with:
         name: tfplan
 
+    # Encrypt plan
+    - name: Terraform Plan
+      id: tf-plan-encrypt
+      run: |
+        gpg --batch --passphrase=EXAMPLE -o tfplan-dec --decrypt tfplan
+
+
     # Terraform Apply
     - name: Terraform Apply
-      run: terraform apply -auto-approve tfplan
+      run: terraform apply -auto-approve tfplan-dec
