@@ -145,9 +145,9 @@ jobs:
     - name: Terraform Plan
       id: tf-plan-encrypt
       run: |
-        gpg --batch --passphrase=EXAMPLE -o tfplan-dec --decrypt tfplan
+        gpg --batch --passphrase=EXAMPLE -o tfplan --decrypt tfplan.gpg
 
 
     # Terraform Apply
     - name: Terraform Apply
-      run: terraform apply -auto-approve tfplan-dec
+      run: terraform apply -auto-approve tfplan
