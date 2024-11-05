@@ -62,7 +62,7 @@ jobs:
         fi
 
     # Encrypt plan
-    - name: Terraform Plan
+    - name: Encrypt Terraform Plan
       id: tf-plan-encrypt
       run: |
         gpg --batch --passphrase=EXAMPLE --symmetric tfplan
@@ -141,9 +141,9 @@ jobs:
       with:
         name: tfplan
 
-    # Encrypt plan
-    - name: Terraform Plan
-      id: tf-plan-encrypt
+    # Decrypt plan
+    - name: Decrypt Terraform Plan
+      id: tf-plan-decrypt
       run: |
         gpg --batch --passphrase=EXAMPLE -o tfplan --decrypt tfplan.gpg
 
